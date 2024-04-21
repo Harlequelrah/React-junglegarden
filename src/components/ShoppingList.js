@@ -14,7 +14,7 @@ function ShoppingList(){
                     (cat)=>(
                         <li key={cat}>
                             {cat}
-                            </li>
+                        </li>
                     )
                 )}
             </ul>
