@@ -3,13 +3,14 @@ import '../styles/PlantItem.css'
 
 
 
-function PlantItem({ id, name, cover, water, light }) {
+function PlantItem({ id, name, cover, water, light,price }) {
     return (
 
         <li key={id} className="lmj-plant-item" onClick={() => handleClick(name)} >
         {/* <li key={id} className="lmj-plant-item"  > */}
             {/* {plant.isBestSale && <span>🔥</span>} */}
             {/* {isSpecialOffer && <div className="lmj-sales">Soldes</div>} */}
+            <span className='lmj-plant-item-price'>{price}€</span>
             <img className='lmj-plant-item-cover'  src={cover} alt={`${name} cover`} />
             {name}
             <div>

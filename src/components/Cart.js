@@ -1,48 +1,62 @@
+import { useState,useEffect } from 'react'
 import '../styles/Cart.css'
-function Cart() {
-	const monsteraPrice = 8
-	const ivyPrice = 10
-	const flowerPrice = 15
-	return (
-		<div className="lmj-cart">
-			<h2>Panier</h2>
-			<ul>
-				<li>Monstera : {monsteraPrice}€</li>
-				<li>Lierre : {ivyPrice}€</li>
-				<li>Fleurs : {flowerPrice}€</li>
-			</ul>
-			Total : {monsteraPrice + ivyPrice + flowerPrice}€
+
+function Cart({ cart, updateCart}) {
+	const [isOpen, setIsOpen] = useState(true)
+	const total = cart.reduce(
+		(acc, planType) => acc + planType.amount * planType.price, 0
+	)
+
+        useEffect(() => {
+			if (total >0 )alert(`J'aurai ${total}€ à payer 💸`)
+			document.title = `LMJ: ${total}€ d'achats`
+			// alert(`J'aurai ${total}€ à payer 💸`)
+}	,[total])
+    // useEffect(()=>{
+	// return()=> alert("Le panié a été fermé")
+	// })
+
+
+	return isOpen ? (
+		<div className='lmj-cart'>
+			<button
+				className='lmj-cart-toggle-button'
+				onClick={() => setIsOpen(false)}
+			>
+				Fermer le panier
+			</button>
+			{cart.length > 0 ? (
+				<div>
+					<h2>Panier</h2>
+					<ul>
+						{cart.map(
+							({ name, price, amount }, index) => (
+								<div key={`${name}-${index}`}>
+									{name} {price}€ x {amount}
+								</div>
+							)
+						)}
+
+					</ul>
+					<h3>Total : {total}€ </h3>
+					<button onClick={() => updateCart([])}>Vider le panier</button>
+				</div>
+			) : (<div> Votre panier est vide </div>
+
+			)}
+		</div>
+
+
+	) : (
+		<div className='lmj-cart-closed'>
+			<button
+				className='lmj-cart-toggle-button'
+				onClick={() => setIsOpen(true)}
+			>
+				Ouvrir le Panier
+			</button>
 		</div>
 	)
 }
 
 export default Cart
-// for (var cle in tab_price) {
-//     somme += tab_price[cle];
-// }
-// var valeurs = Object.values(tab_price);
-// var somme = valeurs.reduce((acc, valeurs) => acc + valeurs, 0);
-// const tab_price = {
-//     Monstera: 8,
-//     Lierre: 20,
-//     Bouquet_de_fleur: 30,
-// };
-// return (
-//     <div>
-//         <ul>
-//             <li>Monstera - {tab_price["Monstera"]}€ </li>
-//             <li>Lierre - {tab_price["Lierre"]}€ </li>
-//             <li>Bouquet de Fleur - {tab_price["Bouquet_de_fleur"]}€ </li>
-//         </ul>
-
-//         <span>Total du panier: {somme}</span>
-//     </div>
-// );
-// const list=(
-// <ul>
-//   for(var cle in tab_price){
-//     <li> {cle} - {tab_price[{cle}]} </li>
-//   }
-// </ul>);
-// const liste =
-// <ul>
